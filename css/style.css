@@ -39,6 +39,12 @@ body {
   line-height: 1.6;
 }
 
+/* Responsive media */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
 h1, h2, h3, h4, .font-heading {
   font-family: var(--font-heading);
   font-weight: 700;
