@@ -1,24 +1,24 @@
 /**
- * Aishwarya Kolhapuri Masale - Main JavaScript File
+ * Gauri's Masale - Main JavaScript File
  */
 
 // Product Dataset
 const products = [
   {
     id: 'kanda-lasun-masala',
-    name: 'Authentic Kolhapuri Kanda Lasun Masala',
-    category: 'kolhapuri-specials',
+    name: 'Authentic Kanda Lasun Masala',
+    category: 'traditional-specials',
     heat: 5,
     bestseller: true,
     price: '₹140',
     oldPrice: '₹160',
     weight: '500g Pack',
     image: 'https://images.unsplash.com/photo-1628773822503-936a5367097e?auto=format&fit=crop&w=800&q=85',
-    description: 'The iconic traditional Kolhapuri Onion Garlic spice mix pounded using authentic heritage recipe. Gives rich red tari, fiery aroma, and unmatched flavor to Veg & Non-Veg curries.'
+    description: 'An iconic traditional onion garlic spice mix pounded using a heritage recipe. Gives rich red tari, fiery aroma, and unmatched flavor to vegetarian and non-vegetarian curries.'
   },
   {
     id: 'special-garam-masala',
-    name: 'Aishwarya Royal Garam Masala',
+    name: "Gauri's Royal Garam Masala",
     category: 'everyday-spices',
     heat: 4,
     bestseller: true,
@@ -38,7 +38,7 @@ const products = [
     oldPrice: '₹220',
     weight: '500g Pack',
     image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=85',
-    description: 'Special formulation for making genuine Kolhapuri hotel-style Tambda Rassa (Red Mutton Curry). Unbeatable color, oil layer float (tari), and bold spice note.'
+    description: 'Special formulation for making traditional hotel-style Tambda Rassa (Red Mutton Curry). Unbeatable color, oil layer float (tari), and bold spice note.'
   },
   {
     id: 'sankeshwari-chili-powder',
@@ -50,10 +50,10 @@ const products = [
     oldPrice: '₹175',
     weight: '500g Pack',
     image: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=800&q=85',
-    description: '100% natural, deep crimson Sankeshwari chilies sourced directly from Kolhapuri farms. Delivers vibrant red natural color without added artificial dyes.'
+    description: '100% natural, deep crimson Sankeshwari chilies. Delivers vibrant red natural color without added artificial dyes.'
   },
   {
-    id: 'kolhapuri-mirchi-thecha',
+    id: 'mirchi-thecha',
     name: 'Traditional Green Mirchi Thecha',
     category: 'chutneys',
     heat: 5,
@@ -62,10 +62,10 @@ const products = [
     oldPrice: '₹110',
     weight: '250g Jar',
     image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=85',
-    description: 'Coarsely hand-pounded spicy green chilies with garlic, roasted peanuts, and groundnut oil. Authentic Maharashtrian accompaniment for Bhakri and Jowar roti.'
+    description: 'Coarsely hand-pounded spicy green chilies with garlic, roasted peanuts, and groundnut oil. A traditional Maharashtrian accompaniment for Bhakri and Jowar roti.'
   },
   {
-    id: 'mutton-kolhapuri-masala',
+    id: 'mutton-traditional-masala',
     name: 'Special Mutton & Chicken Masala',
     category: 'nonveg-gravy',
     heat: 4,
@@ -175,7 +175,7 @@ function renderProducts(categoryFilter = 'all', searchQuery = '') {
               <button class="btn-quick-inquiry" onclick="openEnquiryModal('${product.id}')">
                 <i class="fas fa-envelope me-1"></i> Order
               </button>
-              <a href="tel:+919876543210" class="btn-call-product" title="Call Now to Order">
+              <a href="tel:+919356691838" class="btn-call-product" title="Call Now to Order">
                 <i class="fas fa-phone-alt"></i>
               </a>
               <button class="btn-quick-view" onclick="openQuickViewModal('${product.id}')" title="Quick View">
@@ -194,9 +194,10 @@ function initCategoryFilters() {
   const pills = document.querySelectorAll('.category-pill-btn');
   pills.forEach(pill => {
     pill.addEventListener('click', (e) => {
+      const currentPill = e.currentTarget;
       pills.forEach(p => p.classList.remove('active'));
-      e.target.classList.add('active');
-      const cat = e.target.getAttribute('data-category');
+      currentPill.classList.add('active');
+      const cat = currentPill.getAttribute('data-category');
       renderProducts(cat);
     });
   });
@@ -205,7 +206,8 @@ function initCategoryFilters() {
 function resetFilters() {
   const pills = document.querySelectorAll('.category-pill-btn');
   pills.forEach(p => p.classList.remove('active'));
-  document.querySelector('[data-category="all"]').classList.add('active');
+  const defaultPill = document.querySelector('[data-category="all"]');
+  if (defaultPill) defaultPill.classList.add('active');
   const searchInput = document.getElementById('product-search-input');
   if (searchInput) searchInput.value = '';
   renderProducts('all');
@@ -256,7 +258,7 @@ function openQuickViewModal(productId) {
           <button class="btn btn-crimson flex-grow-1" onclick="closeModalAndEnquire('${product.id}')">
             <i class="fas fa-paper-plane me-2"></i> Send Bulk / Retail Enquiry
           </button>
-          <a href="tel:+919876543210" class="btn btn-gold px-3" title="Call Now">
+          <a href="tel:+919356691838" class="btn btn-gold px-3" title="Call Now">
             <i class="fas fa-phone-alt me-1"></i> Call Now
           </a>
         </div>
@@ -281,8 +283,9 @@ function closeModalAndEnquire(productId) {
 function openEnquiryModal(productId = '') {
   const product = products.find(p => p.id === productId);
   const selectEl = document.getElementById('enquiry-product-select');
-  if (selectEl && product) {
-    selectEl.value = product.name;
+
+  if (selectEl) {
+    selectEl.value = product ? product.name : '';
   }
 
   const enqModal = new bootstrap.Modal(document.getElementById('enquiryModal'));
